@@ -35,7 +35,7 @@ class TestDAGIntegrity:
         dag_folder = Path(__file__).parent.parent / "dags"
         dag_bag = DagBag(dag_folder=str(dag_folder), include_examples=False)
         
-        dag = dag_bag.get_dag("revenue_pipeline")
+        dag = dag_bag.dags.get("revenue_pipeline")
         assert dag is not None, "revenue_pipeline DAG not found"
         
         task_ids = [task.task_id for task in dag.tasks]
@@ -49,7 +49,7 @@ class TestDAGIntegrity:
         dag_folder = Path(__file__).parent.parent / "dags"
         dag_bag = DagBag(dag_folder=str(dag_folder), include_examples=False)
         
-        dag = dag_bag.get_dag("load_source_data")
+        dag = dag_bag.dags.get("load_source_data")
         assert dag is not None, "load_source_data DAG not found"
         
         task_ids = [task.task_id for task in dag.tasks]
