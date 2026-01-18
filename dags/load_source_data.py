@@ -29,20 +29,20 @@ def load_products():
     conn = sqlite3.connect(SQLITE_PATH)
     df = pd.read_sql("SELECT sku_id, sku_description, price FROM product", conn)
     conn.close()
-    
+
     print(f"Loaded {len(df)} products from SQLite")
-    
+
     # Load to BigQuery
     client = bigquery.Client(project=PROJECT_ID)
     table_id = f"{PROJECT_ID}.{DATASET_ID}.product"
-    
+
     job_config = bigquery.LoadJobConfig(
         write_disposition="WRITE_TRUNCATE",  # Replace existing data
     )
-    
+
     job = client.load_table_from_dataframe(df, table_id, job_config=job_config)
     job.result()  # Wait for completion
-    
+
     print(f"Loaded {len(df)} products to {table_id}")
 
 
@@ -50,27 +50,27 @@ def load_sales():
     """Extract sales from SQLite, load to BigQuery."""
     conn = sqlite3.connect(SQLITE_PATH)
     df = pd.read_sql("""
-        SELECT order_id, sku_id, orderdate_utc, sales 
+        SELECT order_id, sku_id, orderdate_utc, sales
         FROM sales
     """, conn)
     conn.close()
-    
+
     # Convert to timestamp
     df['orderdate_utc'] = pd.to_datetime(df['orderdate_utc'])
-    
+
     print(f"Loaded {len(df)} sales from SQLite")
-    
+
     # Load to BigQuery
     client = bigquery.Client(project=PROJECT_ID)
     table_id = f"{PROJECT_ID}.{DATASET_ID}.sales"
-    
+
     job_config = bigquery.LoadJobConfig(
         write_disposition="WRITE_TRUNCATE",
     )
-    
+
     job = client.load_table_from_dataframe(df, table_id, job_config=job_config)
     job.result()
-    
+
     print(f"Loaded {len(df)} sales to {table_id}")
 
 
