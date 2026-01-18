@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install flake8 pytest apache-airflow google-cloud-bigquery pandas
+          pip install flake8 pytest apache-airflow apache-airflow-providers-google google-cloud-bigquery pandas
 
       - name: Lint Python files
         run: |

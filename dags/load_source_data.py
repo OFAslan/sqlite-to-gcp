@@ -8,7 +8,7 @@ from datetime import datetime
 import sqlite3
 import pandas as pd
 from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow.providers.standard.operators.python import PythonOperator
 from google.cloud import bigquery
 
 # Config
