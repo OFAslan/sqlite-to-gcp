@@ -5,4 +5,5 @@ RUN pip install --no-cache-dir \
     pandas \
     google-cloud-bigquery \
     db-dtypes \
-    pyarrow
+    pyarrow \
+    apache-airflow-providers-google

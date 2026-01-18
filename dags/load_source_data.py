@@ -78,7 +78,7 @@ with DAG(
     dag_id="load_source_data",
     default_args=default_args,
     description="Load product and sales data from SQLite to BigQuery",
-    schedule_interval=None,  # Manual trigger only
+    schedule=None,  # Manual trigger only
     start_date=datetime(2025, 1, 1),
     catchup=False,
     tags=["ingestion", "source"],
